@@ -771,7 +771,14 @@ static void emit_c_get_field(lcmgen_t *lcm, FILE *f, lcm_struct_t *ls)
         emit(3,"f->name = \"%s\";", m->membername);
         emit(3,"f->type = %s;", type_val);
         emit(3,"f->typestr = \"%s\";", m->type->shortname);
-        emit(3,"f->namespace = \"%s\";", m->type->package);
+
+        if(!lcm_is_primitive_type(m->type->shortname)) {
+            char *field_tn = m->type->lctypename;
+            char *field_tn_ = dots_to_underscores(field_tn);
+
+            emit(3,"f->package = \"%s\";", m->type->package);
+            emit(3,"f->full_typestr = \"%s\";", field_tn_);
+        }
 
         int num_dim = g_ptr_array_size(m->dimensions);
         emit(3,"f->num_dim = %d;", num_dim);
