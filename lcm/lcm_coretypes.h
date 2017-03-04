@@ -502,6 +502,18 @@ struct _lcm_field_t
     const char *typestr;
 
     /**
+     * datatype of the package (in string format)
+     * this should be the same as in the lcm type decription file
+     */
+    const char *package;
+
+    /**
+     * full type (in string format)
+     * this should be the same as the package with underscore and the typestr
+     */
+    const char *full_typestr;
+
+    /**
      * number of array dimensions
      * if the field is scalar, num_dim should equal 0
      */
